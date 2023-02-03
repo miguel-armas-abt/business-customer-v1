@@ -1,0 +1,738 @@
+{
+	"info": {
+		"_postman_id": "df6e74d0-8a37-4c1f-848d-ab4f7041fced",
+		"name": "IBK",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12456516"
+	},
+	"item": [
+		{
+			"name": "findByDocumentType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8093/ibk/business/v1/customers?documentType=DNI",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8093",
+					"path": [
+						"ibk",
+						"business",
+						"v1",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "documentType",
+							"value": "DNI"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "findAll 200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "documentType",
+									"value": "DNI",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:32:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"uniqueCode\": 1,\n        \"names\": \"Miguel Rodrigo\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517363\n    },\n    {\n        \"uniqueCode\": 2,\n        \"names\": \"Lorena Paloma\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517364\n    },\n    {\n        \"uniqueCode\": 3,\n        \"names\": \"Luis Jhunior\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517365\n    },\n    {\n        \"uniqueCode\": 4,\n        \"names\": \"Rosa Mariela\",\n        \"lastNames\": \"Abt Urbina\",\n        \"documentType\": \"RUC\",\n        \"documentNumber\": 76517366\n    },\n    {\n        \"uniqueCode\": 5,\n        \"names\": \"Luis Amado\",\n        \"lastNames\": \"Armas Gonzales\",\n        \"documentType\": \"RUC\",\n        \"documentNumber\": 76517367\n    },\n    {\n        \"uniqueCode\": 6,\n        \"names\": \"Luis Adrian\",\n        \"lastNames\": \"Rodriguez Salazar\",\n        \"documentType\": \"PASSPORT\",\n        \"documentNumber\": 76517368\n    }\n]"
+				},
+				{
+					"name": "findByDocumentType 200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers?documentType=DNI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "documentType",
+									"value": "DNI"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:33:29 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"uniqueCode\": 1,\n        \"names\": \"Miguel Rodrigo\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517363\n    },\n    {\n        \"uniqueCode\": 2,\n        \"names\": \"Lorena Paloma\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517364\n    },\n    {\n        \"uniqueCode\": 3,\n        \"names\": \"Luis Jhunior\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517365\n    }\n]"
+				},
+				{
+					"name": "findByDocumentType 400",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers?documentType=DNI2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "documentType",
+									"value": "DNI2"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:33:49 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"/errors/business-rules\",\n    \"title\": \"The document type is not defined\",\n    \"errorCode\": \"ERROR1001\",\n    \"details\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8093/ibk/business/v1/customers/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8093",
+					"path": [
+						"ibk",
+						"business",
+						"v1",
+						"customers",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "delete 204",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Location",
+							"value": "http://localhost:8093/ibk/business/v1/customers/1/1"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:34:26 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "delete 400 cuistomer does not exist",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers",
+								"100"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:34:43 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"/errors/no-data\",\n    \"title\": \"The customer does not exist\",\n    \"errorCode\": \"ERROR1000\",\n    \"details\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"names\": \"Luis Adrian\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8093/ibk/business/v1/customers/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8093",
+					"path": [
+						"ibk",
+						"business",
+						"v1",
+						"customers",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "update 201",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"names\": \"Luis Adrian\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Location",
+							"value": "http://localhost:8093/ibk/business/v1/customers/1/1"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:28:46 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "update 400 customer does not exist",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"names\": \"Luis Adrian\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers",
+								"100"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:29:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"/errors/no-data\",\n    \"title\": \"The customer does not exist\",\n    \"errorCode\": \"ERROR1000\",\n    \"details\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "save",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uniqueCode\": 3,\r\n    \"names\": \"Luis Adrian\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"PASSPORT\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8093/ibk/business/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8093",
+					"path": [
+						"ibk",
+						"business",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "save 201",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uniqueCode\": 1,\r\n    \"names\": \"Miguel Rodrigo\",\r\n    \"lastNames\": \"Armas Abt\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": 76517368,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers?documentType=DNI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "documentType",
+									"value": "DNI"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Location",
+							"value": "http://localhost:8093/ibk/business/v1/customers/1"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 01:54:35 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "save 400 bad json fornat",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uniqueCode\": 3,\r\n    //\r\n    \"names\": \"Luis Adrian\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"PASSPORT\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:23:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"/errors/bad-requests\",\n    \"title\": \"Unexpected character ('/' (code 47)): maybe a (non-standard) comment? (not recognized as one since Feature 'ALLOW_COMMENTS' not enabled for parser)\\n at [Source: (PushbackInputStream); line: 3, column: 6]\",\n    \"errorCode\": \"BAD_REQUEST_BODY_STRUCTURE\",\n    \"details\": []\n}"
+				},
+				{
+					"name": "save 400 uniqueCode used",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uniqueCode\": 3,\r\n    \"names\": \"Luis Adrian\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"PASSPORT\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:23:53 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"/errors/business-rules\",\n    \"title\": \"The customer code is already used currently\",\n    \"errorCode\": \"ERROR1002\",\n    \"details\": []\n}"
+				},
+				{
+					"name": "save 400 documentType no defined",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uniqueCode\": 3,\r\n    \"names\": \"Luis Adrian\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"PASSPORTX\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/ibk/business/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"ibk",
+								"business",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Feb 2023 02:26:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"/errors/bad-requests\",\n    \"title\": \"Invalid request body\",\n    \"errorCode\": \"BAD_REQUEST_BODY\",\n    \"details\": [\n        {\n            \"title\": \"documentType has invalid format\",\n            \"component\": \"business-menu-option\"\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}

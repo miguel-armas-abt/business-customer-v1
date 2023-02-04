@@ -1,7 +1,7 @@
 ### Business Customer V1
 `<autor>`: Miguel Rodrigo Armas Abt
 
-##Acerca de la funcionalidad
+## Acerca de la funcionalidad
 
 | Endpoint                                    | Método | Descripción                                                              |
 |---------------------------------------------|--------|--------------------------------------------------------------------------|
@@ -14,13 +14,13 @@
 
 > Observación: Todos los endpoints requieren el header Authorization.
 
-##Prerrequisitos para instalación y despliegue
+## Prerrequisitos para instalación y despliegue
 * Java 11
 * Maven 3.8.1
 * Habilitar plugin de Lombok
 * Docker
 
-##Despliegue con Docker
+## Despliegue con Docker
 > Nota: Los siguientes comandos deben ser ejecutados en la raíz del proyecto.
 
 | Procedimiento          | Comando                                                                         |
@@ -30,5 +30,5 @@
 | Ver imágenes           | `docker image ls`                                                               |
 | Ejecutar la aplicación | `docker run --name busines-customer-v1 -p 8093:8093 busines-customer-v1:0.0.1`  |
 
-##Pruebas unitarias
+## Pruebas unitarias
 > Aplica.

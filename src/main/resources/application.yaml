@@ -29,3 +29,23 @@ spring:
     platform: h2
     username: sa
     password:
+
+#SPRINGDOC
+##swagger-ui default path: http://localhost:8093/swagger-ui/index.html
+springdoc:
+  swagger-ui:
+#    path: /swagger-ui.html #swagger-ui custom path: http://localhost:8093/swagger-ui.html
+    enabled: true #disable the swagger-ui in prod environment
+
+#SPRINGFOX
+##swagger-ui default path: http://localhost:8093/swagger-ui.html
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
+
+documentation:
+  api:
+    info:
+      description: ''
+    examples:
+      json-exception: '{"type":"/errors/no-data","title":"The customer does not exist","errorCode":"ERROR1000","details":[]}'

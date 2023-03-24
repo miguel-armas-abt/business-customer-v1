@@ -7,15 +7,15 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpStatus;
+
 @Slf4j
 @AllArgsConstructor
 @Getter
 public enum CustomerException {
 
-  ERROR1000("/errors/no-data", "The customer does not exist", HttpStatus.BAD_REQUEST),
-  ERROR1001("/errors/business-rules", "The document type is not defined", HttpStatus.BAD_REQUEST),
-
-  ERROR1002("/errors/business-rules", "The customer code is already used currently", HttpStatus.BAD_REQUEST);
+  ERROR1000("/no-data", "The customer doesn't exist", HttpStatus.NOT_FOUND),
+  ERROR1001("/business-rules", "The document type is not defined", HttpStatus.BAD_REQUEST),
+  ERROR1002("/business-rules", "The customer code is already used currently", HttpStatus.BAD_REQUEST);
 
   private final String type;
   private final String description;

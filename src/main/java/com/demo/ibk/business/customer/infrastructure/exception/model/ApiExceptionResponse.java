@@ -1,6 +1,7 @@
 package com.demo.ibk.business.customer.infrastructure.exception.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -34,15 +35,19 @@ import java.util.List;
 @Builder
 public class ApiExceptionResponse implements Serializable {
 
+  @Schema(description = "The unique uri identifier that categorizes the error", example = "/errors/authentication")
   @JsonProperty(value = "type")
   private final String type;
 
+  @Schema(description = "A brief, human-readable message about the error", example = "The user does not have autorization")
   @JsonProperty(value = "title")
   private final String title;
 
+  @Schema(description = "The unique error code", example = "ERROR1000")
   @JsonProperty(value = "errorCode")
   private final String errorCode;
 
+  @Schema(description = "A list of details about the error")
   @JsonProperty("details")
   private final List<ApiExceptionDetail> details;
 

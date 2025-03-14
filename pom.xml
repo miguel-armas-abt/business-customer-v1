@@ -7,7 +7,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.6.2</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath/>
   </parent>
 
   <groupId>com.demo.bbq.business</groupId>
@@ -111,11 +111,12 @@
       <version>3.11</version>
     </dependency>
 
-    <dependency><!-- logstash -->
-      <groupId>net.logstash.logback</groupId>
-      <artifactId>logstash-logback-encoder</artifactId>
-      <version>7.0.1</version>
+    <dependency><!-- logs -->
+      <groupId>com.newrelic.logging</groupId>
+      <artifactId>logback</artifactId>
+      <version>2.6.0</version>
     </dependency>
+
   </dependencies>
 
   <build>

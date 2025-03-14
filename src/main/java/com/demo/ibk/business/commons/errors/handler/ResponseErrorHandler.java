@@ -2,6 +2,7 @@ package com.demo.ibk.business.commons.errors.handler;
 
 import com.demo.ibk.business.commons.errors.dto.ErrorDto;
 import com.demo.ibk.business.commons.errors.exceptions.GenericException;
+import com.demo.ibk.business.commons.logging.error.ErrorLogger;
 import com.demo.ibk.business.commons.properties.ApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ public class ResponseErrorHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler({Throwable.class})
   public ResponseEntity<ErrorDto> handleException(Throwable ex, WebRequest request) {
+    ErrorLogger.generateTrace(ex, request);
+
     ErrorDto error = ErrorDto.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 

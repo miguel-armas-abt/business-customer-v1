@@ -8,14 +8,14 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop #use ddl-auto to create schema or import.sql, but not both
+      ddl-auto: create-drop #use ddl-auto to create schema or data.sql, but not both
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
         show_sql: true
         use_sql_comments: false
         format_sql: true
-    defer-datasource-initialization: true #read import.sql file after schema generation by hibernate
+    defer-datasource-initialization: true #read data.sql file after schema generation by hibernate
 
   h2:
     console:

@@ -1,56 +1,44 @@
 [
   {
-    "id": 1,
     "uniqueCode": 1,
     "names": "Miguel Rodrigo",
     "lastNames": "Armas Abt",
     "documentType": "DNI",
-    "documentNumber": 76517363,
-    "active": true
+    "documentNumber": 76517363
   },
   {
-    "id": 2,
     "uniqueCode": 2,
     "names": "Lorena Paloma",
     "lastNames": "Armas Abt",
     "documentType": "DNI",
-    "documentNumber": 76517364,
-    "active": true
+    "documentNumber": 76517364
   },
   {
-    "id": 3,
     "uniqueCode": 3,
     "names": "Luis Jhunior",
     "lastNames": "Armas Abt",
     "documentType": "DNI",
-    "documentNumber": 76517365,
-    "active": true
+    "documentNumber": 76517365
   },
   {
-    "id": 4,
     "uniqueCode": 4,
     "names": "Rosa Mariela",
     "lastNames": "Abt Urbina",
-    "documentType": "RUC",
-    "documentNumber": 76517366,
-    "active": true
+    "documentType": "CE",
+    "documentNumber": 76517366
   },
   {
-    "id": 5,
     "uniqueCode": 5,
     "names": "Luis Amado",
     "lastNames": "Armas Gonzales",
-    "documentType": "RUC",
-    "documentNumber": 76517367,
-    "active": true
+    "documentType": "CE",
+    "documentNumber": 76517367
   },
   {
-    "id": 6,
     "uniqueCode": 6,
     "names": "Luis Adrian",
     "lastNames": "Rodriguez Salazar",
     "documentType": "PASSPORT",
-    "documentNumber": 76517368,
-    "active": false
+    "documentNumber": 76517368
   }
 ]

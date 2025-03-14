@@ -1,11 +1,10 @@
-package com.demo.ibk.business.customer.infrastructure.repository;
+package com.demo.ibk.business.customer.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.demo.ibk.business.customer.JsonFileReader;
-import com.demo.ibk.business.customer.repository.CustomerRepository;
 import com.demo.ibk.business.customer.repository.entity.CustomerEntity;
 import com.google.gson.Gson;
 import java.util.List;
@@ -20,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 // @AutoConfigureTestDatabase(replace = NONE) //use real database
 @DataJpaTest
 @ActiveProfiles("test") //use application-test.yaml
-public class CustomerResponseDtoRepositoryTest {
+public class CustomerRepositoryTest {
 
   @Autowired
   private CustomerRepository repository;
@@ -29,7 +28,7 @@ public class CustomerResponseDtoRepositoryTest {
 
   @BeforeEach
   void setup() {
-    expectedCustomerEntityList = JsonFileReader.readListFromFile(CustomerEntity.class, "data/model/customer/entity/CustomerEntity-List.json");
+    expectedCustomerEntityList = JsonFileReader.readListFromFile(CustomerEntity.class, "mocks/entity/CustomerEntity_List.json");
   }
 
   @Test

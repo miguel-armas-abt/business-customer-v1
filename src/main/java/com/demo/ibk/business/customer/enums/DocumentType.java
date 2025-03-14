@@ -13,8 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public enum DocumentType {
 
   DNI("DNI", "Documento Nacional de Identidad"),
-  IMMIGRATION_CARD("IMMIGRATION", "Carné de extranjería"),
-  RUC("RUC", "Registro Único de Contribuyentes"),
+  CE("CE", "Carné de extranjería"),
   PASSPORT("PASSPORT", "Pasaporte");
 
   private final String code;

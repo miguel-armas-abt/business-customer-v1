@@ -27,7 +27,7 @@ public class CustomerRequestDto implements Serializable {
   @NotNull(message = "lastNames cannot be null")
   private String lastNames;
 
-  @Pattern(regexp = "^(DNI|IMMIGRATION|RUC|PASSPORT)$", message = "documentType has invalid format")
+  @Pattern(regexp = "^(DNI|CE|PASSPORT)$", message = "documentType has invalid format")
   @Size(min = 3, max = 300)
   @NotNull(message = "documentType cannot be null")
   private String documentType;

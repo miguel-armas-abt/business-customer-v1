@@ -1,4 +1,4 @@
-package com.demo.ibk.business.customer.application.service.impl;
+package com.demo.ibk.business.customer.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,7 +27,7 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CustomerResponseDtoServiceTest {
+public class CustomerServiceTest {
 
   @InjectMocks
   private CustomerServiceImpl menuOptionService;
@@ -50,15 +50,15 @@ public class CustomerResponseDtoServiceTest {
 
   @Before
   public void setup() {
-    expectedSavedCustomerEntityList = JsonFileReader.readListFromFile(CustomerEntity.class, "data/model/customer/entity/CustomerEntity-List.json");
+    expectedSavedCustomerEntityList = JsonFileReader.readListFromFile(CustomerEntity.class, "mocks/entity/CustomerEntity_List.json");
 
-    expectedSavedCustomerEntity = JsonFileReader.readObjectFromFile(CustomerEntity.class,  "data/model/customer/entity/CustomerEntity.json");
+    expectedSavedCustomerEntity = JsonFileReader.readObjectFromFile(CustomerEntity.class, "mocks/entity/CustomerEntity.json");
 
-    expectedSavedCustomerListResponseDto = JsonFileReader.readListFromFile(CustomerResponseDto.class, "data/model/customer/dto/response/Customer-List.json");
+    expectedSavedCustomerListResponseDto = JsonFileReader.readListFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto_List.json");
 
-    expectedSavedCustomerResponseDto = JsonFileReader.readObjectFromFile(CustomerResponseDto.class, "data/model/customer/dto/response/Customer.json");
+    expectedSavedCustomerResponseDto = JsonFileReader.readObjectFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto.json");
 
-    customerRequestDto = JsonFileReader.readObjectFromFile(CustomerRequestDto.class, "data/model/customer/dto/request/CustomerRequest.json");
+    customerRequestDto = JsonFileReader.readObjectFromFile(CustomerRequestDto.class, "mocks/dto/request/CustomerRequestDto.json");
   }
 
   @Test

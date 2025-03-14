@@ -1,4 +1,4 @@
-package com.demo.ibk.business.customer.infrastructure.resource.rest;
+package com.demo.ibk.business.customer.rest;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +11,6 @@ import com.demo.ibk.business.customer.JsonFileReader;
 import com.demo.ibk.business.customer.dto.request.CustomerRequestDto;
 import com.demo.ibk.business.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.business.customer.service.CustomerService;
-import com.demo.ibk.business.customer.rest.CustomerRestService;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +32,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = CustomerRestService.class)
 @ActiveProfiles("test") //use application-test.yaml
-public class CustomerResponseDtoRestServiceTest {
+public class CustomerRestServiceTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -46,7 +45,7 @@ public class CustomerResponseDtoRestServiceTest {
 
   @Before
   public void setup() {
-    expectedSavedCustomerListResponseDto = JsonFileReader.readListFromFile(CustomerResponseDto.class, "data/model/customer/dto/response/Customer-List.json");
+    expectedSavedCustomerListResponseDto = JsonFileReader.readListFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto_List.json");
 
     URI = "/ibk/business/v1/customers";
   }
@@ -94,7 +93,7 @@ public class CustomerResponseDtoRestServiceTest {
   @DisplayName("Return customer filtered by unique code")
   public void returnCustomerFilteredByUniqueCode() throws Exception {
     CustomerResponseDto expectedCustomerResponseDto = JsonFileReader
-        .readObjectFromFile(CustomerResponseDto.class, "data/model/customer/dto/response/Customer.json");
+        .readObjectFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto.json");
     when(customerService.findByUniqueCode(anyLong())).thenReturn(expectedCustomerResponseDto);
     String expected = new Gson().toJson(expectedCustomerResponseDto);
 
@@ -113,7 +112,7 @@ public class CustomerResponseDtoRestServiceTest {
   @DisplayName("Save a customer")
   public void saveCustomer() throws Exception {
     CustomerRequestDto requestBody = JsonFileReader
-        .readObjectFromFile(CustomerRequestDto.class, "data/model/customer/dto/request/CustomerRequest.json");
+        .readObjectFromFile(CustomerRequestDto.class, "mocks/dto/request/CustomerRequestDto.json");
     String jsonRequestBody = new Gson().toJson(requestBody);
     when(customerService.save(any(CustomerRequestDto.class))).thenReturn(7L);
 
@@ -131,7 +130,7 @@ public class CustomerResponseDtoRestServiceTest {
   @Test
   public void updateCustomer() throws Exception {
     CustomerRequestDto requestBody = JsonFileReader
-        .readObjectFromFile(CustomerRequestDto.class, "data/model/customer/dto/request/CustomerRequest.json");
+        .readObjectFromFile(CustomerRequestDto.class, "mocks/dto/request/CustomerRequestDto.json");
     String jsonRequestBody = new Gson().toJson(requestBody);
     when(customerService.update(anyLong(), any(CustomerRequestDto.class))).thenReturn(7L);
 

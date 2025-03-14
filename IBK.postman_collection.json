@@ -86,7 +86,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"uniqueCode\": 1,\n        \"names\": \"Miguel Rodrigo\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517363\n    },\n    {\n        \"uniqueCode\": 2,\n        \"names\": \"Lorena Paloma\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517364\n    },\n    {\n        \"uniqueCode\": 3,\n        \"names\": \"Luis Jhunior\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517365\n    },\n    {\n        \"uniqueCode\": 4,\n        \"names\": \"Rosa Mariela\",\n        \"lastNames\": \"Abt Urbina\",\n        \"documentType\": \"RUC\",\n        \"documentNumber\": 76517366\n    },\n    {\n        \"uniqueCode\": 5,\n        \"names\": \"Luis Amado\",\n        \"lastNames\": \"Armas Gonzales\",\n        \"documentType\": \"RUC\",\n        \"documentNumber\": 76517367\n    },\n    {\n        \"uniqueCode\": 6,\n        \"names\": \"Luis Adrian\",\n        \"lastNames\": \"Rodriguez Salazar\",\n        \"documentType\": \"PASSPORT\",\n        \"documentNumber\": 76517368\n    }\n]"
+					"body": "[\n    {\n        \"uniqueCode\": 1,\n        \"names\": \"Miguel Rodrigo\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517363\n    },\n    {\n        \"uniqueCode\": 2,\n        \"names\": \"Lorena Paloma\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517364\n    },\n    {\n        \"uniqueCode\": 3,\n        \"names\": \"Luis Jhunior\",\n        \"lastNames\": \"Armas Abt\",\n        \"documentType\": \"DNI\",\n        \"documentNumber\": 76517365\n    },\n    {\n        \"uniqueCode\": 4,\n        \"names\": \"Rosa Mariela\",\n        \"lastNames\": \"Abt Urbina\",\n        \"documentType\": \"CE\",\n        \"documentNumber\": 76517366\n    },\n    {\n        \"uniqueCode\": 5,\n        \"names\": \"Luis Amado\",\n        \"lastNames\": \"Armas Gonzales\",\n        \"documentType\": \"CE\",\n        \"documentNumber\": 76517367\n    },\n    {\n        \"uniqueCode\": 6,\n        \"names\": \"Luis Adrian\",\n        \"lastNames\": \"Rodriguez Salazar\",\n        \"documentType\": \"PASSPORT\",\n        \"documentNumber\": 76517368\n    }\n]"
 				},
 				{
 					"name": "findByDocumentType 200",
@@ -624,7 +624,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"type\": \"/errors/bad-requests\",\n    \"title\": \"Unexpected character ('/' (code 47)): maybe a (non-standard) comment? (not recognized as one since Feature 'ALLOW_COMMENTS' not enabled for parser)\\n at [Source: (PushbackInputStream); line: 3, column: 6]\",\n    \"errorCode\": \"BAD_REQUEST_BODY_STRUCTURE\",\n    \"details\": []\n}"
+					"body": "{\n    \"type\": \"/errors/bad-requests\",\n    \"title\": \"Unexpected character ('/' (code 47)): maybe a (non-standard) comment? (not recognized as one since Feature 'ALLOW_COMMENTS' not enabled for parser)\\n at [Source: (PushbackInputStream); line: 3, column: 6]\",\n    \"errorCode\": \"BAD_REQUEST_BODY_STCETURE\",\n    \"details\": []\n}"
 				},
 				{
 					"name": "save 400 uniqueCode used",

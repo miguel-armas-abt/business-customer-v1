@@ -1,4 +1,4 @@
-package com.demo.ibk.business.customer.infrastructure.mapper;
+package com.demo.ibk.business.customer.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,7 +6,6 @@ import com.demo.ibk.business.customer.JsonFileReader;
 import com.demo.ibk.business.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.business.customer.dto.request.CustomerRequestDto;
 import com.demo.ibk.business.customer.repository.entity.CustomerEntity;
-import com.demo.ibk.business.customer.mapper.CustomerMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +18,7 @@ import org.mockito.quality.Strictness;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class CustomerResponseDtoMapperTest {
+public class CustomerMapperTest {
 
     private CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
 
@@ -34,11 +33,11 @@ public class CustomerResponseDtoMapperTest {
      */
     @BeforeEach
     public void setup() {
-        customerEntity = JsonFileReader.readObjectFromFile(CustomerEntity.class, "data/model/customer/entity/CustomerEntity.json");
+        customerEntity = JsonFileReader.readObjectFromFile(CustomerEntity.class, "mocks/entity/CustomerEntity.json");
 
-        customerResponseDto = JsonFileReader.readObjectFromFile(CustomerResponseDto.class, "data/model/customer/dto/response/Customer.json");
+        customerResponseDto = JsonFileReader.readObjectFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto.json");
 
-        customerRequestDto = JsonFileReader.readObjectFromFile(CustomerRequestDto.class, "data/model/customer/dto/request/CustomerRequest.json");
+        customerRequestDto = JsonFileReader.readObjectFromFile(CustomerRequestDto.class, "mocks/dto/request/CustomerRequestDto.json");
     }
 
     @Test

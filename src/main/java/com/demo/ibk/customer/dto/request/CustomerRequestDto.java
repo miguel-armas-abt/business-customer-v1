@@ -36,6 +36,6 @@ public class CustomerRequestDto implements Serializable {
   private Integer documentNumber;
 
   @NotNull(message = "is active cannot be null")
-  private boolean active;
+  private Boolean active;
 
 }

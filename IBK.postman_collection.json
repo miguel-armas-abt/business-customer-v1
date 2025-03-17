@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8093/ibk/business/v1/customers?documentType=DNI",
+					"raw": "http://localhost:8093/ibk/v1/customers?documentType=DNI",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -39,7 +39,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers",
+							"raw": "http://localhost:8093/ibk/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -94,7 +94,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers?documentType=DNI",
+							"raw": "http://localhost:8093/ibk/v1/customers?documentType=DNI",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -148,7 +148,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers?documentType=DNI2",
+							"raw": "http://localhost:8093/ibk/v1/customers?documentType=DNI2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -209,7 +209,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8093/ibk/business/v1/customers/1",
+					"raw": "http://localhost:8093/ibk/v1/customers/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -240,7 +240,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers/1",
+							"raw": "http://localhost:8093/ibk/v1/customers/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -261,7 +261,7 @@
 					"header": [
 						{
 							"key": "Location",
-							"value": "http://localhost:8093/ibk/business/v1/customers/1/1"
+							"value": "http://localhost:8093/ibk/v1/customers/1/1"
 						},
 						{
 							"key": "Date",
@@ -294,7 +294,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers/100",
+							"raw": "http://localhost:8093/ibk/v1/customers/100",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -350,7 +350,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8093/ibk/business/v1/customers/1",
+					"raw": "http://localhost:8093/ibk/v1/customers/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -381,7 +381,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers/1",
+							"raw": "http://localhost:8093/ibk/v1/customers/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -402,7 +402,7 @@
 					"header": [
 						{
 							"key": "Location",
-							"value": "http://localhost:8093/ibk/business/v1/customers/1/1"
+							"value": "http://localhost:8093/ibk/v1/customers/1/1"
 						},
 						{
 							"key": "Content-Length",
@@ -439,7 +439,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers/100",
+							"raw": "http://localhost:8093/ibk/v1/customers/100",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -495,7 +495,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8093/ibk/business/v1/customers",
+					"raw": "http://localhost:8093/ibk/v1/customers",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -525,7 +525,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers?documentType=DNI",
+							"raw": "http://localhost:8093/ibk/v1/customers?documentType=DNI",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -551,7 +551,7 @@
 					"header": [
 						{
 							"key": "Location",
-							"value": "http://localhost:8093/ibk/business/v1/customers/1"
+							"value": "http://localhost:8093/ibk/v1/customers/1"
 						},
 						{
 							"key": "Content-Length",
@@ -588,7 +588,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers",
+							"raw": "http://localhost:8093/ibk/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -641,7 +641,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers",
+							"raw": "http://localhost:8093/ibk/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -694,7 +694,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/business/v1/customers",
+							"raw": "http://localhost:8093/ibk/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"

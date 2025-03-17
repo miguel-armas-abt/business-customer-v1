@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: business-customer-v1
+    name: customer-v1
 
   jpa:
     show-sql: true

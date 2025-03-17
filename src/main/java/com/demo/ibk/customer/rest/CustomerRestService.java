@@ -25,7 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/ibk/business/v1/customers")
+@RequestMapping("/ibk/v1/customers")
 public class CustomerRestService {
 
   private final CustomerService service;

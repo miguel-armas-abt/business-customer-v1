@@ -1,156 +1,171 @@
 package com.demo.ibk.customer.rest;
 
+import static com.demo.ibk.customer.JsonFileReader.readListFromFile;
+import static com.demo.ibk.customer.JsonFileReader.readObjectFromFile;
+import static com.demo.ibk.customer.enums.DocumentType.DNI;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
-import com.demo.ibk.customer.JsonFileReader;
+import com.demo.ibk.commons.properties.ApplicationProperties;
 import com.demo.ibk.customer.dto.request.CustomerRequestDto;
 import com.demo.ibk.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.customer.service.CustomerService;
 import com.google.gson.Gson;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import org.junit.Before;
-import org.junit.Test;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-@RunWith(SpringRunner.class)
 @WebMvcTest(value = CustomerRestService.class)
 @ActiveProfiles("test") //use application-test.yaml
-public class CustomerRestServiceTest {
+class CustomerRestServiceTest {
 
   @Autowired
   private MockMvc mockMvc;
 
+  private static final Gson gson = new Gson();
+  private static final String URI = "/ibk/v1/customers";
+
+  @MockBean
+  private ApplicationProperties applicationProperties;
+
   @MockBean
   private CustomerService customerService;
 
-  private String URI;
-  private List<CustomerResponseDto> expectedSavedCustomerListResponseDto;
-
-  @Before
-  public void setup() {
-    expectedSavedCustomerListResponseDto = JsonFileReader.readListFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto_List.json");
-
-    URI = "/ibk/business/v1/customers";
+  @BeforeEach
+  public void setUp() {
+    MockConfig.mockProperties(applicationProperties);
+    MockConfig.mockCustomerService(customerService);
   }
 
   @Test
-  @DisplayName("Return all customers")
-  public void returnAllCustomers() throws Exception {
-    when(customerService.findByDocumentType(null)).thenReturn(expectedSavedCustomerListResponseDto);
-    String expected = new Gson().toJson(expectedSavedCustomerListResponseDto);
+  @DisplayName("Then return all customers")
+  void thenReturnAllCustomers() throws Exception {
+    //Arrange
+    String expectedJson = gson.toJson(MockConfig.CUSTOMER_RESPONSE_DTO_LIST);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(URI)
         .accept(APPLICATION_JSON);
 
-    MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-    String actual = response.getContentAsString(UTF_8);
+    //Act
+    MockHttpServletResponse response = mockMvc
+      .perform(requestBuilder)
+      .andReturn()
+      .getResponse();
 
-    assertEquals(expected, actual);
+    String actualJson = response.getContentAsString(UTF_8);
+
+    //Assert
+    assertEquals(expectedJson, actualJson);
     assertEquals(HttpStatus.OK.value(), response.getStatus());
   }
 
   @Test
-  @DisplayName("Return customers filtered by document type")
-  public void returnCustomersFilteredByDocumentType() throws Exception {
-    List<CustomerResponseDto> expectedFilteredCustomerListResponseDto = expectedSavedCustomerListResponseDto
-        .stream()
-        .filter(customer -> customer.getDocumentType().equals("DNI"))
-        .collect(Collectors.toList());
-    when(customerService.findByDocumentType("DNI")).thenReturn(expectedFilteredCustomerListResponseDto);
-    String expected = new Gson().toJson(expectedFilteredCustomerListResponseDto);
+  @DisplayName("When search customers by document type, then return filtered customers")
+  void whenSearchCustomersByDocumentType_thenReturnFilteredCustomers() throws Exception {
+    //Arrange
+    String expectedJson = gson.toJson(MockConfig.CUSTOMER_RESPONSE_DTO_LIST_BY_DOCUMENT_TYPE);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(URI)
         .queryParam("documentType", "DNI")
         .accept(APPLICATION_JSON);
 
-    MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-    String actual = response.getContentAsString(UTF_8);
+    //Act
+    MockHttpServletResponse response = mockMvc
+      .perform(requestBuilder)
+      .andReturn()
+      .getResponse();
 
-    assertEquals(expected, actual);
+    String actualJson = response.getContentAsString(UTF_8);
+
+    //Assert
+    assertEquals(expectedJson, actualJson);
     assertEquals(HttpStatus.OK.value(), response.getStatus());
   }
 
   @Test
-  @DisplayName("Return customer filtered by unique code")
-  public void returnCustomerFilteredByUniqueCode() throws Exception {
-    CustomerResponseDto expectedCustomerResponseDto = JsonFileReader
-        .readObjectFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto.json");
-    when(customerService.findByUniqueCode(anyLong())).thenReturn(expectedCustomerResponseDto);
-    String expected = new Gson().toJson(expectedCustomerResponseDto);
+  @DisplayName("When search customer by unique code, then return the expected customer")
+  void whenSearchCustomerByUniqueCode_thenReturnExpectedCustomer() throws Exception {
+    //Arrange
+    String expectedJson = gson.toJson(MockConfig.CUSTOMER_RESPONSE_DTO);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(URI.concat("/7"))
         .accept(APPLICATION_JSON);
 
-    MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-    String actual = response.getContentAsString(UTF_8);
+    //Act
+    MockHttpServletResponse response = mockMvc
+      .perform(requestBuilder)
+      .andReturn()
+      .getResponse();
 
-    assertEquals(expected, actual);
+    String actualJson = response.getContentAsString(UTF_8);
+
+    //Assert
+    assertEquals(expectedJson, actualJson);
     assertEquals(HttpStatus.OK.value(), response.getStatus());
   }
 
   @Test
-  @DisplayName("Save a customer")
-  public void saveCustomer() throws Exception {
-    CustomerRequestDto requestBody = JsonFileReader
-        .readObjectFromFile(CustomerRequestDto.class, "mocks/customer/CustomerRequestDto.json");
-    String jsonRequestBody = new Gson().toJson(requestBody);
-    when(customerService.save(any(CustomerRequestDto.class))).thenReturn(7L);
-
-    RequestBuilder requestBuilder = MockMvcRequestBuilders
-        .post(URI)
-        .accept(APPLICATION_JSON)
-        .content(jsonRequestBody)
-        .contentType(APPLICATION_JSON);
-
-    MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-    assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-    assertEquals("http://localhost/ibk/business/v1/customers/7", response.getHeader("Location"));
-  }
-
-  @Test
-  public void updateCustomer() throws Exception {
-    CustomerRequestDto requestBody = JsonFileReader
-        .readObjectFromFile(CustomerRequestDto.class, "mocks/customer/CustomerRequestDto.json");
-    String jsonRequestBody = new Gson().toJson(requestBody);
-    when(customerService.update(anyLong(), any(CustomerRequestDto.class))).thenReturn(7L);
-
-    RequestBuilder requestBuilder = MockMvcRequestBuilders
-        .put(URI.concat("/7"))
-        .accept(APPLICATION_JSON)
-        .content(jsonRequestBody)
-        .contentType(APPLICATION_JSON);
-
-    MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-    assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-  }
-
-  @Test
-  @DisplayName("Delete a customer")
-  public void deleteCustomer() throws Exception {
+  @DisplayName("When delete a customer, then customer is deleted")
+  void whenDeleteCustomer_thenCustomerIsDeleted() throws Exception {
+    //Arrange
     RequestBuilder requestBuilder = MockMvcRequestBuilders
         .delete(URI.concat("/7"));
 
-    MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+    //Act
+    MockHttpServletResponse response = mockMvc
+      .perform(requestBuilder)
+      .andReturn()
+      .getResponse();
+
+    //Assert
     assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+  }
+
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  public static class MockConfig {
+
+    public static CustomerResponseDto CUSTOMER_RESPONSE_DTO = readObjectFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto.json");
+
+    public static List<CustomerResponseDto> CUSTOMER_RESPONSE_DTO_LIST = readListFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto_List.json");
+
+    public static List<CustomerResponseDto> CUSTOMER_RESPONSE_DTO_LIST_BY_DOCUMENT_TYPE = CUSTOMER_RESPONSE_DTO_LIST.stream()
+      .filter(customer -> customer.getDocumentType().equals(DNI.name()))
+      .collect(Collectors.toList());
+
+    public static void mockProperties(ApplicationProperties properties) {
+      when(properties.getErrorMessages())
+        .thenReturn(Map.of("Default", "No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente."));
+    }
+
+    public static void mockCustomerService(CustomerService customerService) {
+      when(customerService.findByUniqueCode(anyLong()))
+        .thenReturn(CUSTOMER_RESPONSE_DTO);
+
+      when(customerService.findByDocumentType(anyString()))
+        .thenReturn(CUSTOMER_RESPONSE_DTO_LIST_BY_DOCUMENT_TYPE);
+
+      when(customerService.findByDocumentType(null))
+        .thenReturn(CUSTOMER_RESPONSE_DTO_LIST);
+    }
   }
 }

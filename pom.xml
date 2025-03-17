@@ -10,11 +10,11 @@
     <relativePath/>
   </parent>
 
-  <groupId>com.demo.bbq.business</groupId>
-  <artifactId>business-customer-v1</artifactId>
+  <groupId>com.demo.ibk</groupId>
+  <artifactId>customer-v1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>BS API Customer V1</name>
-  <description>BS API Customer V1</description>
+  <name>Customer V1</name>
+  <description>Customer V1</description>
 
   <properties>
     <java.version>17</java.version>

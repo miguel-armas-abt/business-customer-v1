@@ -125,6 +125,52 @@ class CustomerRestServiceTest {
   }
 
   @Test
+  @DisplayName("When save customer, then customer is created")
+  void whenSaveCustomer_ThenCustomerIsCreated() throws Exception {
+    //Arrange
+    CustomerRequestDto requestBody = readObjectFromFile(CustomerRequestDto.class, "mocks/customer/CustomerRequestDto.json");
+
+    RequestBuilder requestBuilder = MockMvcRequestBuilders
+      .post(URI)
+      .accept(APPLICATION_JSON)
+      .content(gson.toJson(requestBody))
+      .contentType(APPLICATION_JSON);
+
+    //Act
+    MockHttpServletResponse response = mockMvc
+      .perform(requestBuilder)
+      .andReturn()
+      .getResponse();
+
+    //Assert
+    assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    assertEquals("http://localhost/ibk/v1/customers/7", response.getHeader("Location"));
+  }
+
+  @Test
+  @DisplayName("When update customer, then customer is updated")
+  void whenUpdateCustomer_ThenCustomerIsUpdated() throws Exception {
+    //Arrange
+    CustomerRequestDto requestBody = readObjectFromFile(CustomerRequestDto.class, "mocks/customer/CustomerRequestDto.json");
+
+    //Act
+    RequestBuilder requestBuilder = MockMvcRequestBuilders
+      .put(URI.concat("/7"))
+      .accept(APPLICATION_JSON)
+      .content(gson.toJson(requestBody))
+      .contentType(APPLICATION_JSON);
+
+    MockHttpServletResponse response = mockMvc
+      .perform(requestBuilder)
+      .andReturn()
+      .getResponse();
+
+    //Assert
+    assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    assertEquals("http://localhost/ibk/v1/customers/7", response.getHeader("Location"));
+  }
+
+  @Test
   @DisplayName("When delete a customer, then customer is deleted")
   void whenDeleteCustomer_thenCustomerIsDeleted() throws Exception {
     //Arrange
@@ -139,6 +185,7 @@ class CustomerRestServiceTest {
 
     //Assert
     assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+    assertEquals("http://localhost/ibk/v1/customers/7", response.getHeader("Location"));
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -166,6 +213,15 @@ class CustomerRestServiceTest {
 
       when(customerService.findByDocumentType(null))
         .thenReturn(CUSTOMER_RESPONSE_DTO_LIST);
+
+      when(customerService.save(any(CustomerRequestDto.class)))
+        .thenReturn(7L);
+
+      when(customerService.update(anyLong(), any(CustomerRequestDto.class)))
+        .thenReturn(7L);
+
+      when(customerService.deleteByUniqueCode(anyLong()))
+        .thenReturn(7L);
     }
   }
 }

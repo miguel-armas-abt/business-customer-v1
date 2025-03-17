@@ -48,7 +48,7 @@ class CustomerServiceTest {
 
   @Test
   @DisplayName("Then return all customers")
-  public void thenReturnAllCustomers() {
+  void thenReturnAllCustomers() {
     //Arrange
     String expectedJson = gson.toJson(CUSTOMER_RESPONSE_DTO_LIST);
 
@@ -62,7 +62,7 @@ class CustomerServiceTest {
 
   @Test
   @DisplayName("When search customer by unique code, then return the expected customer")
-  public void whenSearchCustomerByUniqueCode_thenReturnExpectedCustomer() {
+  void whenSearchCustomerByUniqueCode_thenReturnExpectedCustomer() {
     //Arrange
     String expected = gson.toJson(CUSTOMER_RESPONSE_DTO);
 
@@ -76,7 +76,7 @@ class CustomerServiceTest {
 
   @Test
   @DisplayName("When search customers by document type, then return filtered customers")
-  public void whenSearchCustomersByDocumentType_thenReturnFilteredCustomers() {
+  void whenSearchCustomersByDocumentType_thenReturnFilteredCustomers() {
     //Arrange
     List<CustomerResponseDto> expected = CUSTOMER_RESPONSE_DTO_LIST.stream()
       .filter(customer -> customer.getDocumentType().equals(DNI.name()))

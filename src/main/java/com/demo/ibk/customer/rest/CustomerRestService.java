@@ -3,10 +3,11 @@ package com.demo.ibk.customer.rest;
 import com.demo.ibk.customer.dto.request.CustomerRequestDto;
 import com.demo.ibk.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.customer.service.CustomerService;
+
 import java.net.URI;
 import java.util.List;
-import java.util.function.Function;
-import javax.validation.Valid;
+import java.util.function.LongFunction;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -25,47 +26,59 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/ibk/v1/customers")
+@RequestMapping(value = "/ibk/v1/customers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerRestService {
 
   private final CustomerService service;
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/{uniqueCode}")
+  @GetMapping(value = "/{uniqueCode}")
   public ResponseEntity<CustomerResponseDto> findByUniqueCode(@PathVariable(name = "uniqueCode") Long uniqueCode) {
     return ResponseEntity.ok(service.findByUniqueCode(uniqueCode));
   }
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping
   public ResponseEntity<List<CustomerResponseDto>> findByDocumentType(@RequestParam(value = "documentType", required = false) String documentType) {
 
     List<CustomerResponseDto> customerResponseDtoList = service.findByDocumentType(documentType);
     return (customerResponseDtoList == null || customerResponseDtoList.isEmpty())
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(service.findByDocumentType(documentType));
+      ? ResponseEntity.noContent().build()
+      : ResponseEntity.ok(service.findByDocumentType(documentType));
   }
 
   @PostMapping
   public ResponseEntity<Void> save(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
     Long uniqueCode = service.save(customerRequestDto);
-    return ResponseEntity.created(buildUriLocation.apply(uniqueCode)).build();
+    return ResponseEntity
+      .created(buildPostUriLocation.apply(uniqueCode))
+      .build();
   }
 
   @PutMapping(value = "/{uniqueCode}")
   public ResponseEntity<Void> update(@Valid @RequestBody CustomerRequestDto customerRequestDto,
                                      @PathVariable("uniqueCode") Long uniqueCode) {
-    Long updatedCustomerUniqueCode = service.update(uniqueCode, customerRequestDto);
-    return ResponseEntity.created(buildUriLocation.apply(updatedCustomerUniqueCode)).build();
+    uniqueCode = service.update(uniqueCode, customerRequestDto);
+    return ResponseEntity
+      .created(buildUriLocation.apply(uniqueCode))
+      .build();
   }
 
   @DeleteMapping(value = "/{uniqueCode}")
   public ResponseEntity<Void> delete(@PathVariable("uniqueCode") Long uniqueCode) {
-    service.deleteByUniqueCode(uniqueCode);
-    return ResponseEntity.noContent().location(buildUriLocation.apply(uniqueCode)).build();
+    uniqueCode = service.deleteByUniqueCode(uniqueCode);
+    return ResponseEntity
+      .noContent()
+      .location(buildUriLocation.apply(uniqueCode))
+      .build();
   }
 
-  private static final Function<Long, URI> buildUriLocation = uniqueCode ->
-      ServletUriComponentsBuilder.fromCurrentRequest()
+  private static final LongFunction<URI> buildPostUriLocation = uniqueCode ->
+    ServletUriComponentsBuilder.fromCurrentRequest()
       .path("/{uniqueCode}")
       .buildAndExpand(uniqueCode)
+      .toUri();
+
+  private static final LongFunction<URI> buildUriLocation = productCode ->
+    ServletUriComponentsBuilder.fromCurrentRequest()
+      .buildAndExpand()
       .toUri();
 }

@@ -1,5 +1,6 @@
 package com.demo.ibk.customer.service.impl;
 
+import com.demo.ibk.commons.errors.exceptions.CustomerAlreadyExistsException;
 import com.demo.ibk.commons.errors.exceptions.CustomerNotFoundException;
 import com.demo.ibk.customer.service.CustomerService;
 import com.demo.ibk.customer.dto.request.CustomerRequestDto;
@@ -47,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
   @Override
   public Long save(CustomerRequestDto customerRequest) {
     if (customerRepository.findByUniqueCode(customerRequest.getUniqueCode()).isPresent()) {
-      throw new CustomerNotFoundException();
+      throw new CustomerAlreadyExistsException();
     }
     return customerRepository.save(customerMapper.toEntity(customerRequest)).getUniqueCode();
   }

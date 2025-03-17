@@ -15,9 +15,9 @@ public interface CustomerService {
 
   CustomerResponseDto findByUniqueCode(Long uniqueCode);
 
-  Long save (CustomerRequestDto menuOption);
+  Long save (CustomerRequestDto customerRequest);
 
-  Long update(Long uniqueCode, CustomerRequestDto menuOption);
+  Long update(Long uniqueCode, CustomerRequestDto customerRequest);
 
   Long deleteByUniqueCode(Long uniqueCode);
 }

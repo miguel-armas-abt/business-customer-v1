@@ -1,0 +1,44 @@
+[
+  {
+    "uniqueCode": 1,
+    "names": "Bill",
+    "lastNames": "Gates",
+    "documentType": "DNI",
+    "documentNumber": 12345678
+  },
+  {
+    "uniqueCode": 2,
+    "names": "Jeff",
+    "lastNames": "Bezos",
+    "documentType": "DNI",
+    "documentNumber": 12345679
+  },
+  {
+    "uniqueCode": 3,
+    "names": "Warren",
+    "lastNames": "Buffett",
+    "documentType": "DNI",
+    "documentNumber": 12345680
+  },
+  {
+    "uniqueCode": 4,
+    "names": "Sheryl",
+    "lastNames": "Sandberg",
+    "documentType": "CE",
+    "documentNumber": 12345681
+  },
+  {
+    "uniqueCode": 5,
+    "names": "Satya",
+    "lastNames": "Nadella",
+    "documentType": "CE",
+    "documentNumber": 12345682
+  },
+  {
+    "uniqueCode": 6,
+    "names": "Marissa",
+    "lastNames": "Mayer",
+    "documentType": "PASSPORT",
+    "documentNumber": 12345683
+  }
+]

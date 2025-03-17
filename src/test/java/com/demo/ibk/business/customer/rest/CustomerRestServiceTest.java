@@ -45,7 +45,7 @@ public class CustomerRestServiceTest {
 
   @Before
   public void setup() {
-    expectedSavedCustomerListResponseDto = JsonFileReader.readListFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto_List.json");
+    expectedSavedCustomerListResponseDto = JsonFileReader.readListFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto_List.json");
 
     URI = "/ibk/business/v1/customers";
   }
@@ -93,7 +93,7 @@ public class CustomerRestServiceTest {
   @DisplayName("Return customer filtered by unique code")
   public void returnCustomerFilteredByUniqueCode() throws Exception {
     CustomerResponseDto expectedCustomerResponseDto = JsonFileReader
-        .readObjectFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto.json");
+        .readObjectFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto.json");
     when(customerService.findByUniqueCode(anyLong())).thenReturn(expectedCustomerResponseDto);
     String expected = new Gson().toJson(expectedCustomerResponseDto);
 
@@ -112,7 +112,7 @@ public class CustomerRestServiceTest {
   @DisplayName("Save a customer")
   public void saveCustomer() throws Exception {
     CustomerRequestDto requestBody = JsonFileReader
-        .readObjectFromFile(CustomerRequestDto.class, "mocks/dto/request/CustomerRequestDto.json");
+        .readObjectFromFile(CustomerRequestDto.class, "mocks/customer/CustomerRequestDto.json");
     String jsonRequestBody = new Gson().toJson(requestBody);
     when(customerService.save(any(CustomerRequestDto.class))).thenReturn(7L);
 
@@ -130,7 +130,7 @@ public class CustomerRestServiceTest {
   @Test
   public void updateCustomer() throws Exception {
     CustomerRequestDto requestBody = JsonFileReader
-        .readObjectFromFile(CustomerRequestDto.class, "mocks/dto/request/CustomerRequestDto.json");
+        .readObjectFromFile(CustomerRequestDto.class, "mocks/customer/CustomerRequestDto.json");
     String jsonRequestBody = new Gson().toJson(requestBody);
     when(customerService.update(anyLong(), any(CustomerRequestDto.class))).thenReturn(7L);
 

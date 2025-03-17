@@ -1,8 +1,8 @@
 package com.demo.ibk.business.customer.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.demo.ibk.business.customer.JsonFileReader.readObjectFromFile;
 
-import com.demo.ibk.business.customer.JsonFileReader;
 import com.demo.ibk.business.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.business.customer.dto.request.CustomerRequestDto;
 import com.demo.ibk.business.customer.repository.entity.CustomerEntity;
@@ -10,53 +10,50 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 
-@ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
-public class CustomerMapperTest {
+class CustomerMapperTest {
 
-    private CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
+  private final CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
 
-    private CustomerEntity customerEntity;
+  private static final Gson gson = new Gson();
+  private static CustomerEntity CUSTOMER_ENTITY;
+  private static CustomerResponseDto CUSTOMER_RESPONSE_DTO;
+  private static CustomerRequestDto CUSTOMER_REQUEST_DTO;
 
-    private CustomerResponseDto customerResponseDto;
+  @BeforeEach
+  public void setup() {
+    CUSTOMER_ENTITY = readObjectFromFile(CustomerEntity.class, "mocks/customer/CustomerEntity.json");
+    CUSTOMER_RESPONSE_DTO = readObjectFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto.json");
+    CUSTOMER_REQUEST_DTO = readObjectFromFile(CustomerRequestDto.class, "mocks/customer/CustomerRequestDto.json");
+  }
 
-    private CustomerRequestDto customerRequestDto;
+  @Test
+  @DisplayName("Given an entity, when mapping object, then return responseDto")
+  void givenEntity_whenMappingObject_ThenReturnResponseDto() {
+    //Arrange
+    String expectedJson = gson.toJson(CUSTOMER_RESPONSE_DTO);
 
-    /**
-     * Método que pre carga la data necesaria para ejecutar las pruebas unitarias.
-     */
-    @BeforeEach
-    public void setup() {
-        customerEntity = JsonFileReader.readObjectFromFile(CustomerEntity.class, "mocks/entity/CustomerEntity.json");
+    //Act
+    CustomerResponseDto actual = mapper.toResponseDto(CUSTOMER_ENTITY);
+    String actualJson = gson.toJson(actual);
 
-        customerResponseDto = JsonFileReader.readObjectFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto.json");
+    //Assert
+    assertEquals(expectedJson, actualJson);
+  }
 
-        customerRequestDto = JsonFileReader.readObjectFromFile(CustomerRequestDto.class, "mocks/dto/request/CustomerRequestDto.json");
-    }
+  @Test
+  @DisplayName("Given an entity, when mapping object, then return requestDto")
+  void givenEntity_whenMappingObject_ThenReturnRequestDto() {
+    //Arrange
+    CUSTOMER_ENTITY.setId(null);
+    String expectedJson = gson.toJson(CUSTOMER_ENTITY);
 
-    @Test
-    @DisplayName("return response from entity")
-    public void returnResponseFromEntity() {
-        String expected = new Gson().toJson(customerResponseDto);
-        String actual = new Gson().toJson(mapper.toResponseDto(customerEntity));
+    //Act
+    CustomerEntity actual = mapper.toEntity(CUSTOMER_REQUEST_DTO);
+    String actualJson = gson.toJson(actual);
 
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void returnRequestFromEntity() {
-        CustomerEntity currentCustomerEntity = customerEntity;
-        customerEntity.setId(null);
-
-        String expected = new Gson().toJson(currentCustomerEntity);
-        String actual = new Gson().toJson(mapper.toEntity(customerRequestDto));
-
-        assertEquals(expected, actual);
-    }
+    //Assert
+    assertEquals(expectedJson, actualJson);
+  }
 }

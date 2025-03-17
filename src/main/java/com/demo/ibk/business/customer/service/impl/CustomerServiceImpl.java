@@ -8,15 +8,12 @@ import com.demo.ibk.business.customer.mapper.CustomerMapper;
 import com.demo.ibk.business.customer.repository.CustomerRepository;
 import com.demo.ibk.business.customer.enums.DocumentType;
 import com.demo.ibk.business.customer.repository.entity.CustomerEntity;
-import com.google.gson.Gson;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @RequiredArgsConstructor
 @Component
 public class CustomerServiceImpl implements CustomerService {
@@ -31,7 +28,6 @@ public class CustomerServiceImpl implements CustomerService {
           : this.validateCustomerAndFindByDocumentType(documentType))
         .stream()
         .map(customerMapper::toResponseDto)
-        .peek(menuOption -> log.info("findByDocumentType: {}", new Gson().toJson(menuOption)))
         .collect(Collectors.toList());
   }
 
@@ -48,18 +44,18 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Override
-  public Long save(CustomerRequestDto menuOption) {
-    if (customerRepository.findByUniqueCode(menuOption.getUniqueCode()).isPresent()) {
+  public Long save(CustomerRequestDto customerRequest) {
+    if (customerRepository.findByUniqueCode(customerRequest.getUniqueCode()).isPresent()) {
       throw new CustomerNotFoundException();
     }
-    return customerRepository.save(customerMapper.toEntity(menuOption)).getUniqueCode();
+    return customerRepository.save(customerMapper.toEntity(customerRequest)).getUniqueCode();
   }
 
   @Override
-  public Long update(Long uniqueCode, CustomerRequestDto customerRequestDto) {
+  public Long update(Long uniqueCode, CustomerRequestDto customerRequest) {
     return customerRepository.findByUniqueCode(uniqueCode)
       .map(customerFound -> {
-        CustomerEntity customerEntity = customerMapper.toEntity(customerRequestDto);
+        CustomerEntity customerEntity = customerMapper.toEntity(customerRequest);
         customerEntity.setId(customerFound.getId());
         customerEntity.setUniqueCode(customerFound.getUniqueCode());
         customerRepository.save(customerEntity);

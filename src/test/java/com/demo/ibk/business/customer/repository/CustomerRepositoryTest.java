@@ -3,11 +3,13 @@ package com.demo.ibk.business.customer.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.demo.ibk.business.customer.JsonFileReader.readListFromFile;
+import static com.demo.ibk.business.customer.enums.DocumentType.DNI;
 
-import com.demo.ibk.business.customer.JsonFileReader;
 import com.demo.ibk.business.customer.repository.entity.CustomerEntity;
 import com.google.gson.Gson;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,60 +21,84 @@ import org.springframework.test.context.ActiveProfiles;
 // @AutoConfigureTestDatabase(replace = NONE) //use real database
 @DataJpaTest
 @ActiveProfiles("test") //use application-test.yaml
-public class CustomerRepositoryTest {
+class CustomerRepositoryTest {
 
   @Autowired
   private CustomerRepository repository;
 
-  private List<CustomerEntity> expectedCustomerEntityList;
+  private static final Gson gson = new Gson();
+
+  private static List<CustomerEntity> CUSTOMER_ENTITY_LIST;
 
   @BeforeEach
   void setup() {
-    expectedCustomerEntityList = JsonFileReader.readListFromFile(CustomerEntity.class, "mocks/entity/CustomerEntity_List.json");
+    CUSTOMER_ENTITY_LIST = readListFromFile(CustomerEntity.class, "mocks/customer/CustomerEntity_List.json");
   }
 
   @Test
-  @DisplayName("Return all customers")
-  public void returnAllCustomers() {
-    String expected = new Gson().toJson(expectedCustomerEntityList);
-    String actual = new Gson().toJson(repository.findAll());
-    assertEquals(expected, actual);
+  @DisplayName("Given a populated database, when search all, then return all customers")
+  void givenPopulatedDatabase_whenSearchAllCustomers_thenReturnAllCustomers() {
+    //Arrange
+    String expectedJson = gson.toJson(CUSTOMER_ENTITY_LIST);
+
+    //Act
+    List<CustomerEntity> actual = repository.findAll();
+    String actualJson = gson.toJson(actual);
+
+    //Assert
+    assertEquals(expectedJson, actualJson);
   }
 
   @Test
-  @DisplayName("Return customer by id")
-  public void returnCustomerById() {
-    CustomerEntity expectedCustomerEntity = expectedCustomerEntityList.get(0);
-    String expected = new Gson().toJson(expectedCustomerEntity);
-    String actual = new Gson().toJson(repository.findById(1L).get());
-    assertEquals(expected, actual);
+  @DisplayName("Given a populated database, when search a customer by ID, then return the expected customer")
+  void givenPopulatedDatabase_whenSearchCustomerById_thenReturnExpectedCustomer() {
+    //Arrange
+    CustomerEntity expectedCustomer = CUSTOMER_ENTITY_LIST.get(0);
+    String expectedJson = gson.toJson(expectedCustomer);
+
+    //Act
+    Optional<CustomerEntity> actual = repository.findById(1L);
+    String actualJson = gson.toJson(actual.get());
+
+    //Assert
+    assertEquals(expectedJson, actualJson);
   }
 
   @Test
-  @DisplayName("Return customers by document type")
-  public void returnCustomersByDocumentType() {
-    List<CustomerEntity> expectedCustomerEntityListFilteredByDni = expectedCustomerEntityList
-        .stream()
-        .filter(customerFound -> customerFound.getDocumentType().equals("DNI"))
+  @DisplayName("Given a populated database, when search a customer by document type, then return filtered customers")
+  void givenPopulatedDatabase_whenSearchCustomerByDocumentType_thenReturnFilteredCustomers() {
+    //Arrange
+    List<CustomerEntity> expectedCustomers = CUSTOMER_ENTITY_LIST.stream()
+        .filter(customer -> customer.getDocumentType().equals(DNI.name()))
         .collect(Collectors.toList());
 
-    String expected = new Gson().toJson(expectedCustomerEntityListFilteredByDni);
-    String actual = new Gson().toJson(repository.findByDocumentType("DNI"));
-    assertEquals(expected, actual);
+    String expectedJson = gson.toJson(expectedCustomers);
+
+    //Act
+    List<CustomerEntity> actual = repository.findByDocumentType(DNI.name());
+    String actualJson = gson.toJson(actual);
+
+    //Assert
+    assertEquals(expectedJson, actualJson);
   }
 
   @Test
-  @DisplayName("Delete a customer")
-  public void deleteById() {
-    int rowsNumberBefore = repository.findAll().size();
+  @DisplayName("Given a populated database, when delete customer by ID, then delete the expected customer")
+  void givenPopulatedDatabase_whenDeleteCustomerById_thenDeleteExpectedCustomer() {
+    //Arrange
     Long id = 1L;
-    boolean isExistBefore = repository.findById(id).isPresent();
-    repository.deleteById(1L);
-    int rowsNumberAfter = repository.findAll().size();
-    boolean isExistAfter = repository.findById(id).isPresent();
+    boolean existsBefore = repository.existsById(id);
+    int rowsNumberBefore = repository.findAll().size();
 
-    assertEquals(rowsNumberBefore, rowsNumberAfter + 1);
-    assertTrue(isExistBefore);
+    //Act
+    repository.deleteById(1L);
+
+    boolean isExistAfter = repository.existsById(id);
+    int rowsNumberAfter = repository.findAll().size();
+
+    //Assert
+    assertEquals(rowsNumberAfter + 1, rowsNumberBefore);
+    assertTrue(existsBefore);
     assertFalse(isExistAfter);
   }
 

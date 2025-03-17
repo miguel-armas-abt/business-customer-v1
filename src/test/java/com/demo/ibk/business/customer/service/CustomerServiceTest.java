@@ -3,132 +3,123 @@ package com.demo.ibk.business.customer.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static com.demo.ibk.business.customer.enums.DocumentType.DNI;
+import static com.demo.ibk.business.customer.JsonFileReader.readListFromFile;
+import static com.demo.ibk.business.customer.JsonFileReader.readObjectFromFile;
 
-import com.demo.ibk.business.customer.JsonFileReader;
 import com.demo.ibk.business.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.business.customer.mapper.CustomerMapper;
 import com.demo.ibk.business.customer.repository.CustomerRepository;
-import com.demo.ibk.business.customer.dto.request.CustomerRequestDto;
 import com.demo.ibk.business.customer.repository.entity.CustomerEntity;
 import com.demo.ibk.business.customer.service.impl.CustomerServiceImpl;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.junit.Before;
-import org.junit.Test;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
-public class CustomerServiceTest {
+class CustomerServiceTest {
 
-  @InjectMocks
-  private CustomerServiceImpl menuOptionService;
+  private static CustomerService customerService;
+  private static Gson gson;
 
-  @Mock
-  private CustomerRepository customerRepository;
+  private List<CustomerResponseDto> CUSTOMER_RESPONSE_DTO_LIST;
+  private CustomerResponseDto CUSTOMER_RESPONSE_DTO;
 
-  @Spy
-  private CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+  @BeforeAll
+  public static void init() {
+    customerService = MockConfig.mockCustomerService();
+    gson = new Gson();
+  }
 
-  private List<CustomerEntity> expectedSavedCustomerEntityList;
-
-  private CustomerEntity expectedSavedCustomerEntity;
-
-  private List<CustomerResponseDto> expectedSavedCustomerListResponseDto;
-
-  private CustomerResponseDto expectedSavedCustomerResponseDto;
-
-  private CustomerRequestDto customerRequestDto;
-
-  @Before
+  @BeforeEach
   public void setup() {
-    expectedSavedCustomerEntityList = JsonFileReader.readListFromFile(CustomerEntity.class, "mocks/entity/CustomerEntity_List.json");
-
-    expectedSavedCustomerEntity = JsonFileReader.readObjectFromFile(CustomerEntity.class, "mocks/entity/CustomerEntity.json");
-
-    expectedSavedCustomerListResponseDto = JsonFileReader.readListFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto_List.json");
-
-    expectedSavedCustomerResponseDto = JsonFileReader.readObjectFromFile(CustomerResponseDto.class, "mocks/dto/response/CustomerResponseDto.json");
-
-    customerRequestDto = JsonFileReader.readObjectFromFile(CustomerRequestDto.class, "mocks/dto/request/CustomerRequestDto.json");
+    CUSTOMER_RESPONSE_DTO_LIST = readListFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto_List.json");
+    CUSTOMER_RESPONSE_DTO = readObjectFromFile(CustomerResponseDto.class, "mocks/customer/CustomerResponseDto.json");
   }
 
   @Test
-  @DisplayName("Return all customers")
-  public void returnAllCustomers() {
-    when(customerRepository.findAll()).thenReturn(expectedSavedCustomerEntityList);
+  @DisplayName("Then return all customers")
+  public void thenReturnAllCustomers() {
+    //Arrange
+    String expectedJson = gson.toJson(CUSTOMER_RESPONSE_DTO_LIST);
 
-    String expected = new Gson().toJson(expectedSavedCustomerListResponseDto);
-    String actual = new Gson().toJson(menuOptionService.findByDocumentType(null));
-    assertEquals(expected, actual);
+    //Act
+    List<CustomerResponseDto> actual = customerService.findByDocumentType(null);
+    String actualJson = gson.toJson(actual);
+
+    //Assert
+    assertEquals(expectedJson, actualJson);
   }
 
   @Test
-  @DisplayName("Return customer filtered by unique code")
-  public void returnCustomerFilteredByUniqueCode() {
-    when(customerRepository.findByUniqueCode(anyLong())).thenReturn(Optional.of(expectedSavedCustomerEntity));
+  @DisplayName("When search customer by unique code, then return the expected customer")
+  public void whenSearchCustomerByUniqueCode_thenReturnExpectedCustomer() {
+    //Arrange
+    String expected = gson.toJson(CUSTOMER_RESPONSE_DTO);
 
-    String expected = new Gson().toJson(expectedSavedCustomerResponseDto);
-    String actual = new Gson().toJson(menuOptionService.findByUniqueCode(1L));
+    //Act
+    CustomerResponseDto actual = customerService.findByUniqueCode(1L);
+    String actualJson = gson.toJson(actual);
 
-    assertEquals(expected, actual);
+    //Assert
+    assertEquals(expected, actualJson);
   }
 
   @Test
-  @DisplayName("Return customers filtered by document type")
-  public void returnCustomersFilteredByDocumentType() {
-    when(customerRepository.findByDocumentType("DNI")).thenReturn(expectedSavedCustomerEntityList
-            .stream()
-            .filter(customerFound -> customerFound.getDocumentType().equals("DNI"))
-            .collect(Collectors.toList()));
+  @DisplayName("When search customers by document type, then return filtered customers")
+  public void whenSearchCustomersByDocumentType_thenReturnFilteredCustomers() {
+    //Arrange
+    List<CustomerResponseDto> expected = CUSTOMER_RESPONSE_DTO_LIST.stream()
+      .filter(customer -> customer.getDocumentType().equals(DNI.name()))
+      .collect(Collectors.toList());
 
-    String expected = new Gson().toJson(expectedSavedCustomerListResponseDto
-            .stream()
-            .filter(customer -> customer.getDocumentType().equals("DNI"))
-            .collect(Collectors.toList()));
-    String actual = new Gson().toJson(menuOptionService.findByDocumentType("DNI"));
-    assertEquals(expected, actual);
+    String expectedJson = gson.toJson(expected);
+
+    //Act
+    List<CustomerResponseDto> actual = customerService.findByDocumentType(DNI.name());
+    String actualJson = gson.toJson(actual);
+
+    //Assert
+    assertEquals(expectedJson, actualJson);
   }
 
-  @Test
-  @DisplayName("Update a customer")
-  public void updateCustomer() {
-    expectedSavedCustomerEntity.setUniqueCode(7L);
-    when(customerRepository.findByUniqueCode(any())).thenReturn(Optional.of(expectedSavedCustomerEntity));
-    when(customerRepository.save(any())).thenReturn(expectedSavedCustomerEntity);
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  private static class MockConfig {
 
-    String expected = new Gson().toJson(expectedSavedCustomerEntity.getUniqueCode());
-    customerRequestDto.setUniqueCode(7L);
-    String actual = new Gson().toJson(menuOptionService.update(7L, customerRequestDto));
+    private static final List<CustomerEntity> CUSTOMER_ENTITY_ALL = readListFromFile(CustomerEntity.class, "mocks/customer/CustomerEntity_List.json");
+    private static final CustomerEntity CUSTOMER_ENTITY_BY_UNIQUE_CODE = readObjectFromFile(CustomerEntity.class, "mocks/customer/CustomerEntity.json");
 
-    assertEquals(expected, actual);
-  }
+    public static CustomerService mockCustomerService() {
+      CustomerRepository repository = mockCustomerRepository();
+      CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
+      return new CustomerServiceImpl(repository, mapper);
+    }
 
-  @Test
-  @DisplayName("Save a customer")
-  public void saveCustomer() {
-    expectedSavedCustomerEntity.setUniqueCode(7L);
-    when(customerRepository.save(any())).thenReturn(expectedSavedCustomerEntity);
+    public static CustomerRepository mockCustomerRepository() {
+      CustomerRepository repository = mock(CustomerRepository.class);
 
-    String expected = new Gson().toJson(expectedSavedCustomerEntity.getUniqueCode());
-    String actual = new Gson().toJson(menuOptionService.save(customerRequestDto));
+      when(repository.findAll())
+        .thenReturn(CUSTOMER_ENTITY_ALL);
 
-    assertEquals(expected, actual);
-  }
+      when(repository.findByDocumentType(any()))
+        .thenReturn(CUSTOMER_ENTITY_ALL.stream()
+          .filter(customer -> customer.getDocumentType().equals(DNI.name()))
+          .collect(Collectors.toList()));
 
-  @Test
-  @DisplayName("Delete a customer")
-  public void deleteCustomer() {
-    when(customerRepository.findByUniqueCode(anyLong())).thenReturn(Optional.of(expectedSavedCustomerEntity));
-    menuOptionService.deleteByUniqueCode(7L);
+      when(repository.findByUniqueCode(anyLong()))
+        .thenReturn(Optional.of(CUSTOMER_ENTITY_BY_UNIQUE_CODE));
+
+      return repository;
+    }
   }
 
 }

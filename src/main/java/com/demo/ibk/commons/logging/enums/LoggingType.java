@@ -1,11 +1,11 @@
-package com.demo.ibk.commons.logging.injector.enums;
+package com.demo.ibk.commons.logging.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum LoggerType {
+public enum LoggingType {
 
   REST_SERVER_REQ("rest.server.req", "REST server request"),
   REST_SERVER_RES("rest.server.res", "REST server response"),

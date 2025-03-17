@@ -1,4 +1,4 @@
-package com.demo.ibk.commons.logging.injector.constants;
+package com.demo.ibk.commons.logging.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

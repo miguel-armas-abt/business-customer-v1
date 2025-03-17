@@ -4,11 +4,6 @@ import java.util.List;
 import com.demo.ibk.customer.dto.request.CustomerRequestDto;
 import com.demo.ibk.customer.dto.response.CustomerResponseDto;
 
-/**
- * <br/>Interface Service que define los métodos necesarios para tramitar la lógica de negocio del contexto Customer.<br/>
- *
- * @author Miguel Armas Abt <br/>
- */
 public interface CustomerService {
 
   List<CustomerResponseDto> findByDocumentType(String documentType);

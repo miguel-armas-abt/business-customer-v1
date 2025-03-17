@@ -1,4 +1,4 @@
-package com.demo.ibk.commons.logging.interceptor.restserver;
+package com.demo.ibk.commons.interceptor.restserver;
 
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;

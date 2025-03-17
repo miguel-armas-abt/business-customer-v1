@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 
 public class CustomerAlreadyExistsException extends GenericException {
 
-  private static final String CODE = ExceptionCatalog.CUSTOMER_NOT_FOUND.getCode();
-  private static final String MESSAGE = ExceptionCatalog.CUSTOMER_NOT_FOUND.getMessage();
+  private static final String CODE = ExceptionCatalog.CUSTOMER_ALREADY_EXISTS.getCode();
+  private static final String MESSAGE = ExceptionCatalog.CUSTOMER_ALREADY_EXISTS.getMessage();
 
   public CustomerAlreadyExistsException() {
     super(MESSAGE);

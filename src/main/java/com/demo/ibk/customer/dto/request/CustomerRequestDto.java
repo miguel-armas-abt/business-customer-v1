@@ -19,15 +19,15 @@ public class CustomerRequestDto implements Serializable {
 
   private Long uniqueCode;
 
-  @Size(min = 3, max = 300)
+  @Size(min = 2, max = 300, message = "names size must be between 2 and 300")
   @NotNull(message = "names cannot be null")
   private String names;
 
-  @Size(min = 3, max = 300)
+  @Size(min = 2, max = 300, message = "names size must be between 2 and 300")
   @NotNull(message = "lastNames cannot be null")
   private String lastNames;
 
-  @Pattern(regexp = "^(DNI|CE|PASSPORT)$", message = "documentType has invalid format")
+  @Pattern(regexp = "^(DNI|CE|PASSPORT)$", message = "documentType must be DNI, CE or PASSPORT")
   @NotNull(message = "documentType cannot be null")
   private String documentType;
 

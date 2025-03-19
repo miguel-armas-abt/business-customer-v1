@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ExceptionCatalog {
 
+    //technical
+    INVALID_INPUT_FIELD("00.00.01", "Non-valid input field"),
+
+    //business
     CUSTOMER_NOT_FOUND("01.01.01", "The customer doesn't exist"),
     INVALID_DOCUMENT_TYPE("01.01.02", "The document type is not defined"),
     CUSTOMER_ALREADY_EXISTS("01.01.03", "The customer already exists");

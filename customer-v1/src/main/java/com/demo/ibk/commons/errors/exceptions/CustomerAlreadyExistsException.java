@@ -6,15 +6,14 @@ import org.springframework.http.HttpStatus;
 
 public class CustomerAlreadyExistsException extends GenericException {
 
-  private static final String CODE = ExceptionCatalog.CUSTOMER_ALREADY_EXISTS.getCode();
-  private static final String MESSAGE = ExceptionCatalog.CUSTOMER_ALREADY_EXISTS.getMessage();
+  private static final ExceptionCatalog EXCEPTION = ExceptionCatalog.CUSTOMER_ALREADY_EXISTS;
 
   public CustomerAlreadyExistsException() {
-    super(MESSAGE);
+    super(EXCEPTION.getMessage());
     this.httpStatus = HttpStatus.BAD_REQUEST;
     this.errorDetail = ErrorDto.builder()
-      .code(CODE)
-      .message(MESSAGE)
+      .code(EXCEPTION.getCode())
+      .message(EXCEPTION.getMessage())
       .build();
   }
 }

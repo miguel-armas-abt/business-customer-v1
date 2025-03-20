@@ -40,7 +40,7 @@ public class RestServerInterceptor implements Filter {
     chain.doFilter(bufferingRequest, bufferingResponse);
     String responseBody = bufferingResponse.getCachedBody();
 
-    generateTraceOfResponse(bufferingResponse, responseBody);
+    generateTraceOfResponse(bufferingResponse, extractRequestURL(httpRequest), responseBody);
 
     response.getOutputStream().write(responseBody.getBytes(StandardCharsets.UTF_8));
   }
@@ -57,9 +57,10 @@ public class RestServerInterceptor implements Filter {
         extractRequestBody(request));
   }
 
-  private void generateTraceOfResponse(HttpServletResponse response, String responseBody) {
+  private void generateTraceOfResponse(HttpServletResponse response, String uri, String responseBody) {
     ThreadContextInjector.populateFromRestServerResponse(
         ResponseLoggerUtil.extractResponseHeadersAsMap(response),
+        uri,
         responseBody,
         String.valueOf(response.getStatus()));
   }

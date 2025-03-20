@@ -28,8 +28,8 @@ public class ThreadContextInjector {
     ThreadContext.clearAll();
   }
 
-  public static void populateFromRestServerResponse(Map<String, String> headers, String body, String httpCode) {
-    populateFromRestResponse(LoggingType.REST_SERVER_RES.getCode(), headers, body, httpCode);
+  public static void populateFromRestServerResponse(Map<String, String> headers, String uri, String body, String httpCode) {
+    populateFromRestResponse(LoggingType.REST_SERVER_RES.getCode(), uri, headers, body, httpCode);
     log.info(LoggingType.REST_SERVER_RES.getMessage());
     ThreadContext.clearAll();
   }
@@ -42,10 +42,23 @@ public class ThreadContextInjector {
     putInContext(prefix + LoggingConstant.BODY, body);
   }
 
-  private static void populateFromRestResponse(String prefix, Map<String, String> headers, String body, String httpCode) {
+  private static void populateFromRestResponse(String prefix, String uri, Map<String, String> headers, String body, String httpCode) {
     populateFromHeaders(HeaderExtractor.extractTraceHeaders(headers));
+    putInContext(prefix + LoggingConstant.URI, uri);
     putInContext(prefix + LoggingConstant.HEADERS, HeaderExtractor.getHeadersAsString(headers));
     putInContext(prefix + LoggingConstant.BODY, body);
     putInContext(prefix + LoggingConstant.STATUS, httpCode);
+  }
+
+  public static void populateFromRestClientRequest(String method, String uri, Map<String, String> headers, String body) {
+    populateFromRestRequest(LoggingType.REST_CLIENT_REQ.getCode(), method, uri, headers, body);
+    log.info(LoggingType.REST_CLIENT_REQ.getMessage());
+    ThreadContext.clearAll();
+  }
+
+  public static void populateFromRestClientResponse(Map<String, String> headers, String uri, String body, String httpCode) {
+    populateFromRestResponse(LoggingType.REST_CLIENT_RES.getCode(), uri, headers, body, httpCode);
+    log.info(LoggingType.REST_CLIENT_RES.getMessage());
+    ThreadContext.clearAll();
   }
 }

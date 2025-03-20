@@ -1,10 +1,11 @@
 package com.demo.ibk.customer.mapper;
 
+import static com.demo.ibk.customer.MockConstant.CIPHERED_PASSWORD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.demo.ibk.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.customer.dto.request.CustomerRequestDto;
-import com.demo.ibk.customer.repository.entity.CustomerEntity;
+import com.demo.ibk.customer.repository.customer.entity.CustomerEntity;
 import com.demo.ibk.customer.JsonFileReader;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +51,7 @@ class CustomerMapperTest {
     String expectedJson = gson.toJson(CUSTOMER_ENTITY);
 
     //Act
-    CustomerEntity actual = mapper.toEntity(CUSTOMER_REQUEST_DTO);
+    CustomerEntity actual = mapper.toEntity(CUSTOMER_REQUEST_DTO, CIPHERED_PASSWORD);
     String actualJson = gson.toJson(actual);
 
     //Assert

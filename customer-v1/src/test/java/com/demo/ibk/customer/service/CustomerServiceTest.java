@@ -1,8 +1,10 @@
 package com.demo.ibk.customer.service;
 
+import static com.demo.ibk.customer.MockConstant.CIPHERED_PASSWORD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static com.demo.ibk.customer.enums.DocumentType.DNI;
@@ -11,8 +13,9 @@ import static com.demo.ibk.customer.JsonFileReader.readObjectFromFile;
 
 import com.demo.ibk.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.customer.mapper.CustomerMapper;
-import com.demo.ibk.customer.repository.CustomerRepository;
-import com.demo.ibk.customer.repository.entity.CustomerEntity;
+import com.demo.ibk.customer.repository.cryptography.CryptographyRepository;
+import com.demo.ibk.customer.repository.customer.CustomerRepository;
+import com.demo.ibk.customer.repository.customer.entity.CustomerEntity;
 import com.demo.ibk.customer.service.impl.CustomerServiceImpl;
 import com.google.gson.Gson;
 import java.util.List;
@@ -101,7 +104,8 @@ class CustomerServiceTest {
     public static CustomerService mockCustomerService() {
       CustomerRepository repository = mockCustomerRepository();
       CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
-      return new CustomerServiceImpl(repository, mapper);
+      CryptographyRepository cryptographyRepository = mockCryptographyRepository();
+      return new CustomerServiceImpl(repository, mapper, cryptographyRepository);
     }
 
     public static CustomerRepository mockCustomerRepository() {
@@ -117,6 +121,15 @@ class CustomerServiceTest {
 
       when(repository.findByUniqueCode(anyLong()))
         .thenReturn(Optional.of(CUSTOMER_ENTITY_BY_UNIQUE_CODE));
+
+      return repository;
+    }
+
+    public static CryptographyRepository mockCryptographyRepository() {
+      CryptographyRepository repository = mock(CryptographyRepository.class);
+
+      when(repository.encrypt(anyString()))
+          .thenReturn(CIPHERED_PASSWORD);
 
       return repository;
     }

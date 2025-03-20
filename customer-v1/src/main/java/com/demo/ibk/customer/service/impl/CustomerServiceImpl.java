@@ -2,13 +2,14 @@ package com.demo.ibk.customer.service.impl;
 
 import com.demo.ibk.commons.errors.exceptions.CustomerAlreadyExistsException;
 import com.demo.ibk.commons.errors.exceptions.CustomerNotFoundException;
+import com.demo.ibk.customer.repository.cryptography.CryptographyRepository;
 import com.demo.ibk.customer.service.CustomerService;
 import com.demo.ibk.customer.dto.request.CustomerRequestDto;
 import com.demo.ibk.customer.dto.response.CustomerResponseDto;
 import com.demo.ibk.customer.mapper.CustomerMapper;
-import com.demo.ibk.customer.repository.CustomerRepository;
+import com.demo.ibk.customer.repository.customer.CustomerRepository;
 import com.demo.ibk.customer.enums.DocumentType;
-import com.demo.ibk.customer.repository.entity.CustomerEntity;
+import com.demo.ibk.customer.repository.customer.entity.CustomerEntity;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
 
   private final CustomerRepository customerRepository;
   private final CustomerMapper customerMapper;
+  private final CryptographyRepository cryptographyRepository;
 
   @Override
   public List<CustomerResponseDto> findByDocumentType(String documentType) {
@@ -50,14 +52,17 @@ public class CustomerServiceImpl implements CustomerService {
     if (customerRepository.findByUniqueCode(customerRequest.getUniqueCode()).isPresent()) {
       throw new CustomerAlreadyExistsException();
     }
-    return customerRepository.save(customerMapper.toEntity(customerRequest)).getUniqueCode();
+    String cipheredPassword = cryptographyRepository.encrypt(customerRequest.getPassword());
+    return customerRepository.save(customerMapper.toEntity(customerRequest, cipheredPassword)).getUniqueCode();
   }
 
   @Override
   public Long update(Long uniqueCode, CustomerRequestDto customerRequest) {
     return customerRepository.findByUniqueCode(uniqueCode)
       .map(customerFound -> {
-        CustomerEntity customerEntity = customerMapper.toEntity(customerRequest);
+        String cipheredPassword = cryptographyRepository.encrypt(customerRequest.getPassword());
+
+        CustomerEntity customerEntity = customerMapper.toEntity(customerRequest, cipheredPassword);
         customerEntity.setId(customerFound.getId());
         customerEntity.setUniqueCode(customerFound.getUniqueCode());
         customerRepository.save(customerEntity);

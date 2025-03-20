@@ -1,4 +1,4 @@
-package com.demo.ibk.customer.repository.entity;
+package com.demo.ibk.customer.repository.customer.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
@@ -43,5 +43,8 @@ public class CustomerEntity {
 
   @Column(name = "is_active")
   private boolean active;
+
+  @Column(name = "password")
+  private String password;
 
 }

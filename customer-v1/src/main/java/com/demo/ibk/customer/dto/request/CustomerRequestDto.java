@@ -34,7 +34,10 @@ public class CustomerRequestDto implements Serializable {
   @NotNull(message = "documentNumber cannot be null")
   private Integer documentNumber;
 
-  @NotNull(message = "is active cannot be null")
+  @NotNull(message = "Flag active cannot be null")
   private Boolean active;
+
+  @NotNull(message = "Password cannot be null")
+  private String password;
 
 }

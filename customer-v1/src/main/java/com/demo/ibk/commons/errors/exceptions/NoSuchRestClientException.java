@@ -6,11 +6,11 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class CustomerNotFoundException extends GenericException {
+public class NoSuchRestClientException extends GenericException {
 
-    private static final ExceptionCatalog EXCEPTION = ExceptionCatalog.CUSTOMER_NOT_FOUND;
+    private static final ExceptionCatalog EXCEPTION = ExceptionCatalog.NO_SUCH_REST_CLIENT;
 
-    public CustomerNotFoundException() {
+    public NoSuchRestClientException() {
         super(EXCEPTION.getMessage());
         this.httpStatus = HttpStatus.BAD_REQUEST;
         this.errorDetail = ErrorDto.builder()

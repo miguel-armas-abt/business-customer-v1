@@ -1,6 +1,6 @@
-package com.demo.ibk.customer.repository;
+package com.demo.ibk.customer.repository.customer;
 
-import com.demo.ibk.customer.repository.entity.CustomerEntity;
+import com.demo.ibk.customer.repository.customer.entity.CustomerEntity;
 import java.util.List;
 import java.util.Optional;
 

@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.demo.ibk.customer.repository.entity.CustomerEntity;
+import com.demo.ibk.customer.repository.customer.CustomerRepository;
+import com.demo.ibk.customer.repository.customer.entity.CustomerEntity;
 import com.demo.ibk.customer.JsonFileReader;
 import com.demo.ibk.customer.enums.DocumentType;
 import com.google.gson.Gson;

@@ -32,3 +32,10 @@ spring:
 configuration:
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
+  rest-clients:
+    cryptography-v1:
+      endpoint: ${CRYPTOGRAPHY_V1_ENDPOINT:http://localhost:8094/ibk/v1/cryptography}
+      headers:
+        encryptionMethod: ${CRYPTOGRAPHY_V1_HEADER_ENCRYPTION_METHOD:AES}
+        feature: ${CRYPTOGRAPHY_V1_HEADER_FEATURE:customers}

@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: Encryption Service API
+  version: 1.0.0
+  description: API for encrypting and decrypting values using RSA or AES.
+
+servers:
+  - url: http://localhost:8094
+
+paths:
+  /ibk/v1/cryptography/encrypt:
+    post:
+      summary: Encrypt a value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncryptionRequestDto'
+      parameters:
+        - $ref: '#/components/parameters/EncryptionMethodHeader'
+        - $ref: '#/components/parameters/FeatureHeader'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptionResponseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+  /ibk/v1/cryptography/decrypt:
+    post:
+      summary: Decrypt a cipher message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecryptionRequestDto'
+      parameters:
+        - $ref: '#/components/parameters/EncryptionMethodHeader'
+        - $ref: '#/components/parameters/FeatureHeader'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecryptionResponseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+components:
+  parameters:
+    EncryptionMethodHeader:
+      name: encryptionMethod
+      in: header
+      required: true
+      schema:
+        type: string
+        enum: [RSA, AES]
+        example: RSA
+      description: Encryption method to use (RSA or AES)
+
+    FeatureHeader:
+      name: feature
+      in: header
+      required: true
+      schema:
+        type: string
+        example: login
+      description: Feature or context associated with the encryption/decryption
+
+  schemas:
+    EncryptionRequestDto:
+      type: object
+      required:
+        - value
+      properties:
+        value:
+          type: string
+          example: Aa111111
+
+    EncryptionResponseDto:
+      type: object
+      properties:
+        cipherMessage:
+          type: string
+          example: AAAADC3E7PxHYErE8xfJyg1uItiDmGwTCmlNsgB/+VGAimNbrWcwUg==
+
+    DecryptionRequestDto:
+      type: object
+      required:
+        - cipherMessage
+      properties:
+        cipherMessage:
+          type: string
+          example: AAAADC3E7PxHYErE8xfJyg1uItiDmGwTCmlNsgB/+VGAimNbrWcwUg==
+
+    DecryptionResponseDto:
+      type: object
+      properties:
+        value:
+          type: string
+          example: Aa111111
+
+    ErrorDto:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 01.01.01
+        message:
+          type: string
+          example: Custom error message

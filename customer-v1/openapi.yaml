@@ -1,0 +1,193 @@
+openapi: 3.0.3
+info:
+  title: Customer Service API
+  version: 1.0.0
+  description: API for managing customers
+
+servers:
+  - url: http://localhost:8093
+
+paths:
+  /ibk/v1/customers/{uniqueCode}:
+    get:
+      summary: Get customer by unique code
+      parameters:
+        - $ref: '#/components/parameters/UniqueCodePathParam'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponseDto'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+    put:
+      summary: Update customer
+      parameters:
+        - $ref: '#/components/parameters/UniqueCodePathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequestDto'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+    delete:
+      summary: Delete customer
+      parameters:
+        - $ref: '#/components/parameters/UniqueCodePathParam'
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+  /ibk/v1/customers:
+    get:
+      summary: Get customers by document type
+      parameters:
+        - $ref: '#/components/parameters/DocumentTypeQueryParam'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerResponseDto'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+    post:
+      summary: Create new customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequestDto'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+components:
+  parameters:
+    UniqueCodePathParam:
+      name: uniqueCode
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+        example: 6
+      description: Unique identifier for the customer
+
+    DocumentTypeQueryParam:
+      name: documentType
+      in: query
+      required: false
+      schema:
+        type: string
+        enum: [DNI, CE, PASSPORT]
+        example: PASSPORT
+      description: Filter customers by document type
+
+  schemas:
+    CustomerResponseDto:
+      type: object
+      properties:
+        uniqueCode:
+          type: integer
+          format: int64
+          example: 6
+        names:
+          type: string
+          example: Ada
+        lastNames:
+          type: string
+          example: Lovelace
+        documentType:
+          type: string
+          enum: [DNI, CE, PASSPORT]
+          example: PASSPORT
+        documentNumber:
+          type: integer
+          example: 76517368
+
+    CustomerRequestDto:
+      type: object
+      required:
+        - names
+        - lastNames
+        - documentType
+        - documentNumber
+        - active
+        - password
+      properties:
+        uniqueCode:
+          type: integer
+          format: int64
+          example: 10
+        names:
+          type: string
+          minLength: 2
+          maxLength: 300
+          example: Sam
+        lastNames:
+          type: string
+          minLength: 2
+          maxLength: 300
+          example: Altman
+        documentType:
+          type: string
+          enum: [DNI, CE, PASSPORT]
+          example: DNI
+        documentNumber:
+          type: integer
+          example: 76517376
+        active:
+          type: boolean
+          example: true
+        password:
+          type: string
+          example: Aa111111
+
+    ErrorDto:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 01.01.01
+        message:
+          type: string
+          example: Custom error message

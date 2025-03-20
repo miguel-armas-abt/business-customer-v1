@@ -1,6 +1,0 @@
-server:
-  port: 8094
-
-spring:
-  application:
-    name: cryptography-v1

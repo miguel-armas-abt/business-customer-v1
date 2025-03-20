@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk12:latest
+FROM openjdk:17-jdk-slim
 ARG user=admin
 ARG group=ibkgroup
 ARG uid=1000

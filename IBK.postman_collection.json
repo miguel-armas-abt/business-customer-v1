@@ -47,7 +47,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"names\": \"Luis Adrian\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": false\r\n}",
+							"raw": "{\r\n    \"names\": \"Sam\",\r\n    \"lastNames\": \"Altman\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": false,\r\n    \"password\": \"Aa111111\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"uniqueCode\": 3,\r\n    \"names\": \"Lu\",\r\n    \"lastNames\": \"Rodriguez Salazar\",\r\n    \"documentType\": \"XD\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"uniqueCode\": 10,\r\n    \"names\": \"Sam\",\r\n    \"lastNames\": \"Altman\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": 76517376,\r\n    \"active\": true,\r\n    \"password\": \"Aa111111\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -113,7 +113,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8093/ibk/v1/customers/1",
+							"raw": "http://localhost:8093/ibk/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -122,8 +122,7 @@
 							"path": [
 								"ibk",
 								"v1",
-								"customers",
-								"1"
+								"customers"
 							],
 							"query": [
 								{
@@ -151,7 +150,7 @@
 						"header": [
 							{
 								"key": "encryptionMethod",
-								"value": "RSA",
+								"value": "AES",
 								"type": "text"
 							},
 							{
@@ -162,7 +161,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"value\": \"dummy\"\r\n}",
+							"raw": "{\r\n    \"value\": \"Aa111111\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

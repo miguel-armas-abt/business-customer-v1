@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RestServerInterceptor implements Filter {
 
+  private static final List<String> EXCLUDED_PATHS = List.of("/h2-console", "/swagger-ui", "/actuator");
+
   @Override
   public void init(FilterConfig filterConfig) {
   }
@@ -31,6 +33,13 @@ public class RestServerInterceptor implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
+    HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+    String requestUri = httpRequest.getRequestURI();
+    if (EXCLUDED_PATHS.stream().anyMatch(requestUri::startsWith)) {
+      chain.doFilter(request, response);
+      return;
+    }
 
     BufferingHttpServletResponse bufferingResponse = new BufferingHttpServletResponse((HttpServletResponse) response);
     BufferingHttpServletRequest bufferingRequest = new BufferingHttpServletRequest(httpRequest);
@@ -42,7 +51,7 @@ public class RestServerInterceptor implements Filter {
 
     generateTraceOfResponse(bufferingResponse, extractRequestURL(httpRequest), responseBody);
 
-    response.getOutputStream().write(responseBody.getBytes(StandardCharsets.UTF_8));
+    httpResponse.getOutputStream().write(responseBody.getBytes(StandardCharsets.UTF_8));
   }
 
   @Override
@@ -63,6 +72,15 @@ public class RestServerInterceptor implements Filter {
         uri,
         responseBody,
         String.valueOf(response.getStatus()));
+  }
+
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  public static class ExclusionUtil {
+
+    public static void excludeUris(FilterChain chain, ServletRequest request,
+                                   ServletResponse response, String requestUri) throws IOException, ServletException {
+
+    }
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)

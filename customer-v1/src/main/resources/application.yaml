@@ -19,15 +19,15 @@ spring:
 
   h2:
     console:
-      enabled: true
+      enabled: true #http://localhost:8093/h2-console/
       settings:
         web-allow-others: true
   datasource:
     url: jdbc:h2:mem:customers_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     platform: h2
-    username: sa
-    password:
+    username: admin
+    password: qwerty
 
 configuration:
   error-messages:

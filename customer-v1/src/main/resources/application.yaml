@@ -35,7 +35,7 @@ configuration:
 
   rest-clients:
     cryptography-v1:
-      endpoint: ${CRYPTOGRAPHY_V1_ENDPOINT:http://localhost:8094/ibk/v1/cryptography}
+      endpoint: ${CRYPTOGRAPHY_V1_ENDPOINT:http://localhost:8094/poc/cryptography/v1/encryption}
       headers:
         encryptionMethod: ${CRYPTOGRAPHY_V1_HEADER_ENCRYPTION_METHOD:AES}
         feature: ${CRYPTOGRAPHY_V1_HEADER_FEATURE:customers}

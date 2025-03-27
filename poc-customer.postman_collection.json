@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "b8bd5df1-36ad-4450-95aa-d1c8cdd33579",
-		"name": "IBK",
+		"_postman_id": "973436fc-44a5-4703-b83b-02dcc2805de0",
+		"name": "poc-customer",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33527392"
+		"_exporter_id": "13773998"
 	},
 	"item": [
 		{
@@ -24,14 +24,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/v1/customers/1",
+							"raw": "http://localhost:8093/poc/customer/v1/customers/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8093",
 							"path": [
-								"ibk",
+								"poc",
+								"customer",
 								"v1",
 								"customers",
 								"1"
@@ -55,14 +56,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/v1/customers/1",
+							"raw": "http://localhost:8093/poc/customer/v1/customers/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8093",
 							"path": [
-								"ibk",
+								"poc",
+								"customer",
 								"v1",
 								"customers",
 								"1"
@@ -86,14 +88,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8093/ibk/v1/customers",
+							"raw": "http://localhost:8093/poc/customer/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8093",
 							"path": [
-								"ibk",
+								"poc",
+								"customer",
 								"v1",
 								"customers"
 							]
@@ -113,14 +116,15 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8093/ibk/v1/customers",
+							"raw": "http://localhost:8093/poc/customer/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8093",
 							"path": [
-								"ibk",
+								"poc",
+								"customer",
 								"v1",
 								"customers"
 							],
@@ -169,16 +173,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8094/ibk/v1/cryptography/encrypt",
+							"raw": "http://localhost:8094/poc/cryptography/v1/encryption/encrypt",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8094",
 							"path": [
-								"ibk",
-								"v1",
+								"poc",
 								"cryptography",
+								"v1",
+								"encryption",
 								"encrypt"
 							]
 						}
@@ -195,7 +200,7 @@
 						"header": [
 							{
 								"key": "encryptionMethod",
-								"value": "RSA",
+								"value": "AES",
 								"type": "text"
 							},
 							{
@@ -206,7 +211,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cipherMessage\": \"AmYhZLE2gBuY3BdkkBgn8OEKyyJbly3o878bzEL1IdNMRVPSjim4BEi7LeGJdR6DcxQrcedF75ojdPdWfn/gg+GpKueF6PhE4wzSx/w37nUHFi5BMGZOh2b1scnfh0Rxqa86jmo+wW7zTuBoXVrxtWapF4foFwE3wL0N4basfZHC7qk30ASpwSHL/IFkIsEA/XfdF1jwA1NHqSDdqhMpKtmT95bhGRrN9aRWII4XCxK+Cs41FiurjIBT+dq6eN1MWPTTuSI+9UsA0jyJK8jDyVUYQqobv+SF3YVFCPjcLfymGm6guyB9WauPvt2uD2rVcG1J4bobdcJfpbj1qNkIbeIfn2PsfjD3b5z4DhY187Pumu0tP5iD8KStGr4Q+46oCncJ45I85Ni5KgTeevd8UiSHrFmliSMiWwL0BLnaA4792HBizQSTm3Q1wBUuJdJhB11QqlKp2tz2c94wx50nlMhtI0SEUhamc0z+eCE8npkecYxaWw1FRgMwAz6FQjO3dCEZqzHSknynwkbgPgxXiLFavDs35eNDQGJ1J03ecO6JowDLVr/laYdxGgWHYPfwJDtyAqAgG5e902vJYrtp+atkg4qsoEocG73Bo9rRpc5lIY9PWo0U2LSsgub3YedqkOsG8djIxKmsBImX5/mXsEfQElHSs+YR3GoqMzbgrO0=\"\r\n}",
+							"raw": "{\r\n    \"cipherMessage\": \"AAAADCOGFTcRQPfkou5KUKvTS7dTnjGuIvq5ZuLjI8kTsTLcPk26Hw==\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -214,16 +219,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8094/ibk/v1/cryptography/decrypt",
+							"raw": "http://localhost:8094/poc/cryptography/v1/encryption/decrypt",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8094",
 							"path": [
-								"ibk",
-								"v1",
+								"poc",
 								"cryptography",
+								"v1",
+								"encryption",
 								"decrypt"
 							]
 						}
